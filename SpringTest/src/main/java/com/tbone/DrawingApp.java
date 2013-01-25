@@ -12,9 +12,9 @@ public class DrawingApp {
 	public static void main(String[] args) {
 		LOG.info("Spring Test start");
 		ApplicationContext context=new ClassPathXmlApplicationContext("/META-INF/spring/integration/spring-context.xml");
-		Triangle myBean=(Triangle)context.getBean("triangle");
-		myBean.draw();
-		System.out.println(myBean.getType());
+		Triangle aTriangle=(Triangle)context.getBean("triangle");
+		aTriangle.draw();
+		LOG.info(aTriangle);
 		LOG.info("Spring Test end");
 	}
 

@@ -7,8 +7,20 @@
 		http://www.springframework.org/schema/integration
 		http://www.springframework.org/schema/integration/spring-integration.xsd" >
 
+    <!-- GIVE Fully qualified name for class attribute below-->
     <bean id="triangle" class="com.tbone.Triangle" >
-        <property name="type" value="Equilateral" />
+        <constructor-arg type="int" value="666" />
+        <!-- java.lang.String and String both work below for the type value -->
+        <constructor-arg type="String" value="isoceles" />
+        <!-- below property setting overwrites Constructor property initilization -->
+        <property name="type"  value="Equilateral" />
+        <!-- name and ref below can have the same name, though ref will look out for a class with that id -->
+        <property name="pointA"  ref="pointA" />
+    </bean>
+    
+    <bean id="pointA" class="com.tbone.Point" >
+        <property name="x" value="1" />
+        <property name="y" value="-2" />
     </bean>
 
 </beans>
