@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/integration/spring-integration.xsd" >
 
     <!-- GIVE Fully qualified name for class attribute below-->
-    <bean id="triangle" class="com.tbone.Triangle" >
+    <bean id="triangle" class="com.tbone.springBeans.Triangle" >
         <constructor-arg type="int" value="666" />
         <!-- java.lang.String and String both work below for the type value -->
         <constructor-arg type="String" value="isoceles" />
@@ -18,7 +18,7 @@
         <property name="pointA"  ref="pointA" />
     </bean>
     
-    <bean id="pointA" class="com.tbone.Point" >
+    <bean id="pointA" class="com.tbone.springBeans.Point" >
         <property name="x" value="1" />
         <property name="y" value="-2" />
     </bean>

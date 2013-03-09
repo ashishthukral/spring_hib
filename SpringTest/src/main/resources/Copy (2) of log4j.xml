@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
-    
-    <!-- log4j levels in high to low priority
-    
-	    OFF
-		FATAL
-		ERROR
-		WARN
-		INFO
-		DEBUG
-		TRACE
-		ALL
-     -->
 
     <!-- Overrides log4j.properties and gets precedence -->
 	<!-- Appenders -->
@@ -37,6 +25,8 @@
 	<!-- Loggers -->
 	<logger name="org.springframework.integration">
 		<level value="warn" />
+		<appender-ref ref="console" />
+		<appender-ref ref="myfile" />
 	</logger>
 	
 	<logger name="org.hibernate" additivity="false">
@@ -55,16 +45,22 @@
 		<level value="trace" />
 		<appender-ref ref="myfile" />
 	</logger>
-
+	
+	<logger name="org.jboss.logging">
+		<level value="debug" />
+		<appender-ref ref="console" />
+		<appender-ref ref="myfile" />
+	</logger>
+	
 	<logger name="com.tbone">
 		<level value="info" />
+		<appender-ref ref="console" />
+		<appender-ref ref="myfile" />
 	</logger>
 
 	<!-- Root Logger -->
 	<root>
 		<priority value="debug" />
-		<appender-ref ref="console" />
-		<appender-ref ref="myfile" />
 	</root>
 
 </log4j:configuration>

@@ -1,4 +1,4 @@
-package com.tbone;
+package com.tbone.springBeans;
 
 public class Point {
 	

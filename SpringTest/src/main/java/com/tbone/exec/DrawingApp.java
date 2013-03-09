@@ -1,8 +1,12 @@
-package com.tbone;
+package com.tbone.exec;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.tbone.springBeans.Triangle;
+
+
 
 public class DrawingApp {
 
