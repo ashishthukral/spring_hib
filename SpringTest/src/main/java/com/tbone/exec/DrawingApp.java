@@ -16,6 +16,6 @@ public class DrawingApp {
 		Triangle aTriangle = (Triangle) context.getBean("triangle");
 		aTriangle.draw();
 		LOG.info(aTriangle);
-		LOG.info("Spring Test end ");
+		LOG.info("Spring Test end");
 	}
 }
