@@ -3,7 +3,6 @@
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
     
     <!-- log4j levels in high to low priority
-    
 	    OFF
 		FATAL
 		ERROR
@@ -39,16 +38,21 @@
 		<level value="warn" />
 	</logger>
 	
+	<!-- additivity=false doesnt propogate these logs again to root -->
+	<!-- logs all hibernate debug prio statements to file, like org.hibernate.SQL -->
 	<logger name="org.hibernate" additivity="false">
 		<level value="debug" />
 		<appender-ref ref="myfile" />
 	</logger>
 	
+	
 	<!-- prints hibernate SQL statements, equal to show_sql in hib config file -->
+	<!-- show this hibernate hierarchy only in console as org.hibernate anyways logs it to the file -->
 	<logger name="org.hibernate.SQL">
 		<level value="debug" />
 		<appender-ref ref="console" />
 	</logger>
+	
 	
 	<!-- prints hibernate bind parameters -->
 	<logger name="org.hibernate.type">
@@ -60,6 +64,7 @@
 		<level value="info" />
 	</logger>
 
+	<!-- log everything else to both file n console -->
 	<!-- Root Logger -->
 	<root>
 		<priority value="debug" />

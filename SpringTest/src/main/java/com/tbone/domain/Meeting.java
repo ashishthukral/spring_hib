@@ -23,10 +23,6 @@ public class Meeting {
 	private Date meetingDate;
 	private Set<User> _users = new HashSet<User>(0);
 
-	public String toString() {
-		return subject + ", " + meetingDate;
-	}
-
 	@Id
 	@Column(name = "MEETING_ID")
 	@GeneratedValue
@@ -63,6 +59,37 @@ public class Meeting {
 
 	public void setUsers(Set<User> iUsers) {
 		_users = iUsers;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((meetingId == null) ? 0 : meetingId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Meeting other = (Meeting) obj;
+		if (meetingId == null) {
+			if (other.meetingId != null)
+				return false;
+		} else if (!meetingId.equals(other.meetingId))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Meeting [" + (meetingId != null ? "meetingId=" + meetingId + ", " : "") + (subject != null ? "subject=" + subject + ", " : "")
+				+ (meetingDate != null ? "meetingDate=" + meetingDate : "") + "]";
 	}
 
 }

@@ -44,13 +44,6 @@ public class User implements Serializable {
 		this.createdDate = createdDate;
 	}
 
-	public String toString() {
-		return "userId=" + userId + ", username=" + username + ", createdBy="
-				+ createdBy + ", createdDate=" + createdDate + ", countries="
-				+ _countries + " ,userAddress=" + _userAddress + ", meetings="
-				+ _meetings;
-	}
-
 	@Id
 	// by default takes auto
 	@GeneratedValue
@@ -127,6 +120,39 @@ public class User implements Serializable {
 
 	public void setMeetings(Set<Meeting> iMeetings) {
 		_meetings = iMeetings;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "User [" + (userId != null ? "userId=" + userId + ", " : "") + (username != null ? "username=" + username + ", " : "")
+				+ (createdBy != null ? "createdBy=" + createdBy + ", " : "") + (createdDate != null ? "createdDate=" + createdDate + ", " : "")
+				+ (_countries != null ? "_countries=" + _countries + ", " : "") + (_userAddress != null ? "_userAddress=" + _userAddress + ", " : "")
+				+ (_meetings != null ? "_meetings=" + _meetings : "") + "]";
 	}
 
 }
