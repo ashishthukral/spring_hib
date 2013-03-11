@@ -5,6 +5,10 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 @Embeddable
 public class UserSchoolClassId implements Serializable {
 	/**
@@ -33,34 +37,20 @@ public class UserSchoolClassId implements Serializable {
 	}
 
 	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
+	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((_schoolClass == null) ? 0 : _schoolClass.hashCode());
-		result = prime * result + ((_user == null) ? 0 : _user.hashCode());
-		return result;
+		return new HashCodeBuilder().append(_user).append(_schoolClass).hashCode();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UserSchoolClassId other = (UserSchoolClassId) obj;
-		if (_schoolClass == null) {
-			if (other._schoolClass != null)
-				return false;
-		} else if (!_schoolClass.equals(other._schoolClass))
-			return false;
-		if (_user == null) {
-			if (other._user != null)
-				return false;
-		} else if (!_user.equals(other._user))
-			return false;
-		return true;
+		final SchoolClass aSchoolClass = ((UserSchoolClassId) obj).getSchoolClass();
+		final User aUser = ((UserSchoolClassId) obj).getUser();
+		return new EqualsBuilder().append(_user, aUser).append(_schoolClass, aSchoolClass).isEquals();
 	}
 
 }

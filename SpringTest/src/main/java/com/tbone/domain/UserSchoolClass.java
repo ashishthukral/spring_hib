@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.AccessType;
 
 @Entity
@@ -59,6 +60,11 @@ public class UserSchoolClass implements Serializable {
 
 	public void setSchoolClass(SchoolClass iSchoolClass) {
 		_id.setSchoolClass(iSchoolClass);
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

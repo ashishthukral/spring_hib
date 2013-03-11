@@ -18,6 +18,7 @@ public class App {
 		theInsertHelper.insertStock();
 		theInsertHelper.insertUser();
 		theInsertHelper.insertUserCountry();
+		theInsertHelper.insertUserSchoolClass();
 		theSelectHelper.listStocks();
 		theSelectHelper.readAll();
 		theSelectHelper.readAllCriteria(Stock.class);

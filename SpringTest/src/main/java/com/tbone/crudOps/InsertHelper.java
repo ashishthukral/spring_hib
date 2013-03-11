@@ -10,10 +10,13 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import com.tbone.domain.Meeting;
+import com.tbone.domain.SchoolClass;
 import com.tbone.domain.Stock;
 import com.tbone.domain.User;
 import com.tbone.domain.UserAddress;
 import com.tbone.domain.UserCountry;
+import com.tbone.domain.UserSchoolClass;
+import com.tbone.domain.UserSchoolClassId;
 import com.tbone.util.HibernateUtil;
 
 public class InsertHelper {
@@ -76,6 +79,37 @@ public class InsertHelper {
 			session.save(aUserCountry);
 			tx.commit();
 			LOG.info("Inserting UserCountry SUCCESSFUL !!!");
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			LOG.error("Exception Message", e);
+		} finally {
+			session.close();
+		}
+	}
+
+	public void insertUserSchoolClass() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Criteria criteria = session.createCriteria(User.class);
+			User aDBUser = (User) criteria.add(Restrictions.idEq(2)).uniqueResult();
+			SchoolClass aSchoolClass = new SchoolClass();
+			aSchoolClass.setCourseName("algo");
+			// need to save first for use later in userSchoolClass
+			session.save(aSchoolClass);
+
+			// set composite primary key
+			UserSchoolClassId aUserSchoolClassId = new UserSchoolClassId();
+			aUserSchoolClassId.setSchoolClass(aSchoolClass);
+			aUserSchoolClassId.setUser(aDBUser);
+
+			UserSchoolClass aUserSchoolClass = new UserSchoolClass();
+			aUserSchoolClass.setCodeName("alg");
+			aUserSchoolClass.setId(aUserSchoolClassId);
+			session.save(aUserSchoolClass);
+			tx.commit();
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
