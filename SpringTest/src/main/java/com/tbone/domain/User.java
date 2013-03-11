@@ -34,6 +34,7 @@ public class User implements Serializable {
 	private Set<UserCountry> _countries = new HashSet<UserCountry>(0);
 	private UserAddress _userAddress;
 	private Set<Meeting> _meetings = new HashSet<Meeting>(0);
+	private Set<UserSchoolClass> _userSchoolClasses = new HashSet<UserSchoolClass>(0);
 
 	public User() {
 	}
@@ -120,6 +121,15 @@ public class User implements Serializable {
 
 	public void setMeetings(Set<Meeting> iMeetings) {
 		_meetings = iMeetings;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id.user")
+	public Set<UserSchoolClass> getUserSchoolClasses() {
+		return _userSchoolClasses;
+	}
+
+	public void setUserSchoolClasses(Set<UserSchoolClass> iUserSchoolClasses) {
+		_userSchoolClasses = iUserSchoolClasses;
 	}
 
 	@Override

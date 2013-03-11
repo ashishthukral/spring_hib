@@ -29,7 +29,7 @@ public class UserCountry implements Serializable {
 		return _userCountryId;
 	}
 
-	private void setUserCountryId(Integer iUserCountryId) {
+	public void setUserCountryId(Integer iUserCountryId) {
 		_userCountryId = iUserCountryId;
 	}
 

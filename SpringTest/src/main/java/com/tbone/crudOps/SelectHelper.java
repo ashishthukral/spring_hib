@@ -18,6 +18,7 @@ public class SelectHelper {
 
 	private static final Logger LOG = Logger.getLogger(SelectHelper.class);
 
+	@SuppressWarnings("unchecked")
 	public void listStocks() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
@@ -46,6 +47,7 @@ public class SelectHelper {
 	public void readAll() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
+			@SuppressWarnings("unchecked")
 			List<Stock> stocks = (List<Stock>) session.createQuery("FROM Stock").list();
 			for (Iterator<Stock> iterator = stocks.iterator(); iterator.hasNext();) {
 				Stock aStock = iterator.next();
@@ -77,6 +79,7 @@ public class SelectHelper {
 		try {
 			Criteria criteria = session.createCriteria(Stock.class);
 			criteria.setProjection(Projections.projectionList().add(Projections.property("stockId")).add(Projections.property("stockName")));
+			@SuppressWarnings("unchecked")
 			List<Object[]> stocks = (List<Object[]>) criteria.list();
 			for (Iterator<Object[]> itr = stocks.iterator(); itr.hasNext();) {
 				Object[] o = itr.next();
