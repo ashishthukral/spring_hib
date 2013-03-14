@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import com.tbone.crudOps.InsertHelper;
 import com.tbone.crudOps.SelectHelper;
+import com.tbone.domain.User;
 
 public class App {
 
@@ -23,7 +24,9 @@ public class App {
 		// theSelectHelper.readAll();
 		// theSelectHelper.readAllCriteria(Stock.class);
 		// theSelectHelper.readAllCriteriaProjection();
-		// theSelectHelper.readAllCriteria(User.class);
+		theSelectHelper.readAllCriteria(User.class);
+		theSelectHelper.readAllCriteria(User.class);
+
 	}
 
 }

@@ -64,6 +64,7 @@ public class SelectHelper {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			Criteria criteria = session.createCriteria(iClass);
+			criteria.setCacheable(true);
 			List<?> list = criteria.list();
 			// use toString here explicitly, else works like syso
 			LOG.info(list.toString());

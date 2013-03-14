@@ -22,9 +22,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
@@ -187,7 +184,12 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+		return "User [" + (userId != null ? "userId=" + userId + ", " : "") + (username != null ? "username=" + username : "") + "]";
 	}
+
+	// @Override
+	// public String toString() {
+	// return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	// }
 
 }
