@@ -68,7 +68,7 @@ public class InsertHelper {
 			aUserCountry.setIsoCode("usa");
 			session.save(aUserCountry);
 			criteria = session.createCriteria(User.class);
-			aDBUser = (User) criteria.add(Restrictions.idEq(2)).uniqueResult();
+			aDBUser = (User) session.load(User.class, 2);
 			aUserCountry = new UserCountry();
 			aUserCountry.setUser(aDBUser);
 			aUserCountry.setIsoCode("rus");
@@ -79,6 +79,65 @@ public class InsertHelper {
 			session.save(aUserCountry);
 			tx.commit();
 			LOG.info("Inserting UserCountry SUCCESSFUL !!!");
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			LOG.error("Exception Message", e);
+		} finally {
+			session.close();
+		}
+	}
+
+	public void insertNewUserCountry() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		try {
+			LOG.info("Inserting NewUserCountry !");
+			tx = session.beginTransaction();
+			User aDBUser = new User();
+			aDBUser.setUsername("batman");
+			aDBUser.setCreatedBy("ashish");
+			aDBUser.setCreatedDate(new Date());
+			UserCountry aUserCountry = new UserCountry();
+			aUserCountry.setUser(aDBUser);
+			aUserCountry.setIsoCode("ind");
+			aDBUser.getCountries().add(aUserCountry);
+			session.save(aDBUser);
+			session.save(aUserCountry);
+			tx.commit();
+			LOG.info("Inserting NewUserCountry SUCCESSFUL !!!");
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			LOG.error("Exception Message", e);
+		} finally {
+			session.close();
+		}
+	}
+
+	public void insertUserManager() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		try {
+			LOG.info("Inserting User n Manager !");
+			tx = session.beginTransaction();
+			User aDBUser = new User();
+			aDBUser.setUsername("spiderman");
+			aDBUser.setCreatedBy("ashish");
+			aDBUser.setCreatedDate(new Date());
+			User manager = new User();
+			manager.setUsername("SUPERMAN");
+			manager.setCreatedBy("ashish");
+			manager.setCreatedDate(new Date());
+			// un-comment below if save on manager
+			// manager.getSubordinates().add(aDBUser);
+			// setting manager below and save on aDBUser will cascade manager insert too
+			aDBUser.setManager(manager);
+			// session.save(manager);
+			// save on aDBUser with manager set is enough to persist both users as cascade=All
+			session.save(aDBUser);
+			tx.commit();
+			LOG.info("Inserting  User n Manager SUCCESSFUL !!!");
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();

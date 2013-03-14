@@ -178,5 +178,10 @@
 			<artifactId>hsqldb</artifactId>
 			<version>2.2.9</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>4.1.10.Final</version>
+		</dependency>
 	</dependencies>
 </project>

@@ -20,9 +20,6 @@ import org.hibernate.annotations.AccessType;
 		@AssociationOverride(name = "id.schoolClass", joinColumns = @JoinColumn(name = "school_class_ID")) })
 public class UserSchoolClass implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6183779361048781138L;
 	private UserSchoolClassId _id = new UserSchoolClassId();
 	private String _codeName;

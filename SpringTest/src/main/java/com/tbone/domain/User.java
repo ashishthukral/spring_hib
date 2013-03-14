@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -34,6 +35,8 @@ public class User implements Serializable {
 	private String username;
 	private String createdBy;
 	private Date createdDate;
+	private User _manager;
+	private Set<User> _subordinates = new HashSet<User>(0);
 	private Set<UserCountry> _countries = new HashSet<UserCountry>(0);
 	private UserAddress _userAddress;
 	private Set<Meeting> _meetings = new HashSet<Meeting>(0);
@@ -60,6 +63,28 @@ public class User implements Serializable {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	/*
+	 * Manager and Subordinates example of Self-Join
+	 */
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "manager_id")
+	public User getManager() {
+		return _manager;
+	}
+
+	public void setManager(User iManager) {
+		_manager = iManager;
+	}
+
+	@OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
+	public Set<User> getSubordinates() {
+		return _subordinates;
+	}
+
+	public void setSubordinates(Set<User> iSubordinates) {
+		_subordinates = iSubordinates;
 	}
 
 	@Column(name = "USERNAME", nullable = false, length = 20)
@@ -90,13 +115,13 @@ public class User implements Serializable {
 		this.createdDate = createdDate;
 	}
 
-	// 1) If EAGER used then objects for UserCountry not fetched later but
-	// fetched in the same query
-	// for fetching DBUser itself using left outer join
-	// 2) give getter method name in mappedBy which is used in UserCountry to
-	// map this DBUser class instance
-	// which is being referred by _user field or getUser() method currently in
-	// UserCountry
+	/*
+	 * 1) If EAGER used then objects for UserCountry not fetched later but fetched in the same query for fetching DBUser itself using left outer join 2) give getter method name in
+	 * mappedBy which is used in UserCountry to map this DBUser class instance which is being referred by _user field or getUser() method currently in UserCountry
+	 */
+	/*
+	 * if CascadeType.ALL not used, userCountry not saved on save of user, only saves User
+	 */
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	public Set<UserCountry> getCountries() {
 		return _countries;
@@ -106,7 +131,7 @@ public class User implements Serializable {
 		_countries = iCountries;
 	}
 
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
 	public UserAddress getUserAddress() {
 		return _userAddress;
@@ -163,13 +188,6 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-		// return "User [" + (userId != null ? "userId=" + userId + ", " : "") +
-		// (username != null ? "username=" + username + ", " : "")
-		// + (createdBy != null ? "createdBy=" + createdBy + ", " : "") +
-		// (createdDate != null ? "createdDate=" + createdDate + ", " : "")
-		// + (_countries != null ? "_countries=" + _countries + ", " : "") +
-		// (_userAddress != null ? "_userAddress=" + _userAddress + ", " : "")
-		// + (_meetings != null ? "_meetings=" + _meetings : "") + "]";
 	}
 
 }

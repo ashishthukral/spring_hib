@@ -33,6 +33,10 @@ public class UserCountry implements Serializable {
 		_userCountryId = iUserCountryId;
 	}
 
+	/*
+	 * As this side is relationship-owner(mappedBy in User points to _user property in this entity) or inverse=true as has the FK to user in DB So if save(anUserCountry) called and
+	 * CascadeType.ALL not used, fails insert as User not inserted due to no Cascade if use CascadeType.ALL, then user saved on save of UserCountry
+	 */
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_ID", nullable = false)
 	public User getUser() {
