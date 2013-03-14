@@ -19,7 +19,7 @@
 		<param name="Target" value="System.out" />
 		<param name="Threshold" value="debug"/>
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{HH:mm:ss.SSS} %-5p [%c{2}][%M:%L] %m%n" />
+			<param name="ConversionPattern" value="%d{HH:mm:ss.SSS} %-5p [%c{10}][%M:%L] %m%n" />
 		</layout>
 	</appender>
 	
@@ -36,6 +36,10 @@
 	<!-- Loggers -->
 	<logger name="org.springframework.integration">
 		<level value="warn" />
+	</logger>
+	
+	<logger name="com.mchange.v2">
+   		<level value="error"/>
 	</logger>
 	
 	<!-- additivity=false doesnt propogate these logs again to root -->
