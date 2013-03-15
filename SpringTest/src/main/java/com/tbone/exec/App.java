@@ -18,7 +18,7 @@ public class App {
 		// theInsertHelper.insertUser();
 		// theInsertHelper.insertUserCountry();
 		// theInsertHelper.insertNewUserCountry();
-		theInsertHelper.insertUserManager();
+		// theInsertHelper.insertUserManager();
 		// theInsertHelper.insertUserSchoolClass();
 		// theSelectHelper.listStocks();
 		// theSelectHelper.readAll();

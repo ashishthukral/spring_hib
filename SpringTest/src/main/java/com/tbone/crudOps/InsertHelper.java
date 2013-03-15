@@ -119,9 +119,9 @@ public class InsertHelper {
 	}
 
 	public void insertUserManager() {
-		AuditLogInterceptor interceptor = new AuditLogInterceptor();
-		Session session = HibernateUtil.getSessionFactory().withOptions().interceptor(interceptor).openSession();
-		interceptor.setSession(session);
+		AuditLogInterceptor theInterceptor = new AuditLogInterceptor();
+		Session session = HibernateUtil.getSessionFactory().withOptions().interceptor(theInterceptor).openSession();
+		theInterceptor.setSession(session);
 		Transaction tx = null;
 		try {
 			LOG.info("Inserting User n Manager !");
