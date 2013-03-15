@@ -7,8 +7,7 @@
            maxElementsInMemory="50000"
            eternal="true"
            overflowToDisk="true" />
-    
-    
+        
 
     <cache name="org.hibernate.cache.StandardQueryCache"
            maxElementsInMemory="50000"
@@ -20,8 +19,7 @@
            diskExpiryThreadIntervalSeconds="120"
            memoryStoreEvictionPolicy="LRU" />
 
-    <defaultCache
-            maxElementsInMemory="50000"
+    <defaultCache maxElementsInMemory="50000"
             eternal="false"
             timeToIdleSeconds="120"
             timeToLiveSeconds="120"

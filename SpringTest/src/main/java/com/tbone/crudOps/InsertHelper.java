@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import com.tbone.domain.AuditLog;
 import com.tbone.domain.Meeting;
 import com.tbone.domain.SchoolClass;
 import com.tbone.domain.Stock;
@@ -17,6 +18,8 @@ import com.tbone.domain.UserAddress;
 import com.tbone.domain.UserCountry;
 import com.tbone.domain.UserSchoolClass;
 import com.tbone.domain.UserSchoolClassId;
+import com.tbone.interceptor.AuditLogInterceptor;
+import com.tbone.interceptor.AuditLogInterface;
 import com.tbone.util.HibernateUtil;
 
 public class InsertHelper {
@@ -116,7 +119,9 @@ public class InsertHelper {
 	}
 
 	public void insertUserManager() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		AuditLogInterceptor interceptor = new AuditLogInterceptor();
+		Session session = HibernateUtil.getSessionFactory().withOptions().interceptor(interceptor).openSession();
+		interceptor.setSession(session);
 		Transaction tx = null;
 		try {
 			LOG.info("Inserting User n Manager !");
@@ -227,4 +232,12 @@ public class InsertHelper {
 		}
 	}
 
+	public static void logEntityAudit(String iActionMessage, AuditLogInterface iEntity, Session iSession) {
+		try {
+			AuditLog auditRecord = new AuditLog(iEntity.getAuditEntityId(), iEntity.getAuditEntityDetail(), iActionMessage, iEntity.getClass().toString());
+			iSession.save(auditRecord);
+		} catch (HibernateException e) {
+			LOG.error("Exception Message", e);
+		}
+	}
 }

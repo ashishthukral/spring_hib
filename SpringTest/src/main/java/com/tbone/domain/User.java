@@ -21,10 +21,15 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import com.tbone.interceptor.AuditLogInterface;
 
 @Entity
+// @Cacheable
+// @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "user")
-public class User implements Serializable {
+public class User implements Serializable, AuditLogInterface {
 
 	private static final long serialVersionUID = 2570971705194842387L;
 
@@ -184,6 +189,18 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
+		return "User [" + (userId != null ? "userId=" + userId + ", " : "") + (username != null ? "username=" + username : "") + "]";
+	}
+
+	@Override
+	@Transient
+	public Long getAuditEntityId() {
+		return this.userId.longValue();
+	}
+
+	@Override
+	@Transient
+	public String getAuditEntityDetail() {
 		return "User [" + (userId != null ? "userId=" + userId + ", " : "") + (username != null ? "username=" + username : "") + "]";
 	}
 
